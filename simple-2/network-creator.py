@@ -9,9 +9,9 @@ b.start_scope()
 # ----------
 # PARAMETERS
 # ----------
-t_simul = 15*b.second
+t_simul = 40*b.second
 n_neurons = 2
-n_inputs = 2
+n_inputs = 3
 
 # basic neuron functioning
 tau_mem = 100*b.ms
@@ -39,9 +39,8 @@ w_max = 20
 
 eta = 1
 
-
 # filenames
-stimuli_filename = "/home/ven0m/code/btp/simple-1/2-round-robin-stimulus.npy"
+stimuli_filename = "/home/ven0m/code/btp/simple-2/stimulus.npy"
 
 # ----------------------------
 # Creating the neuron (output)
@@ -122,7 +121,7 @@ S_in = b.Synapses(G_in, G_op, method='exact',
                   on_pre=stdp_pre,
                   on_post=stdp_post)
 S_in.connect()
-S_in.w[:] = "2 + 0.5*rand()"
+S_in.w[:] = "3 + rand()"
 S_in.Apre = 0
 S_in.Apost = 0
 
@@ -177,6 +176,6 @@ for i in range(len(times)):
         time_cap = i
         break
 plt.subplot(n_neurons + 1, 1, n_neurons +1)
-plt.plot(times[:i]/b.second, stimuli[1][:i], '.k')
+plt.plot(times[:time_cap]/b.second, stimuli[1][:time_cap], '.k')
 print("done")
 plt.show()
